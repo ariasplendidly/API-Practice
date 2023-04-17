@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'api-practice';
+  users: any[] = [];
+
+  constructor(private http: HttpClient) {
+    this.fetchUsers();
+  }
+
+  fetchUsers() {
+    this.http.get('https://reqres.in/api/users')
+      .subscribe((data: any) => {
+        this.users = data.data;
+      });
+  }
 }
